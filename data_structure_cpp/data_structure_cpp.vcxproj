@@ -145,6 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arrayList.h" />
+    <ClInclude Include="chain.h" />
+    <ClInclude Include="chainNode.h" />
     <ClInclude Include="linearList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

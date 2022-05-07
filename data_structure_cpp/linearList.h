@@ -1,3 +1,8 @@
+#ifndef _LINEARLIST_
+#define _LINEARLIST_
+
+
+
 #include<iostream>
 template<typename T>
 class linearList
@@ -12,3 +17,4 @@ public:
 	//virtual void output(std::ostream& out) const = 0;
 };
 
+#endif // !_LINEARLIST_

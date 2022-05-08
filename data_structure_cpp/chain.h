@@ -24,6 +24,9 @@ public:
     void erase(int theIndex);
     void output(std::ostream& out) const;
 
+    // 应用
+    void binSort(int range); // 箱子排序，range代表箱子个数，即需要分多少组
+
 protected:
     void checkIndex(int theIndex) const;
     chainNode<T>* firstNode;
@@ -173,6 +176,43 @@ inline void chain<T>::output(std::ostream& out) const
         currentNode != NULL;
         currentNode = currentNode->next)
         out << currentNode->m_element << "   ";
+}
+
+template<typename T>
+inline void chain<T>::binSort(int range)
+{
+    auto head = new chainNode<T>* [range + 1];// 记录每个箱子的第一个节点
+    auto rear = new chainNode<T>* [range + 1];// 记录每个箱子的最后一个节点
+    for (int b = 0; b <= range; b++) head[b] = NULL; // 初始化
+
+    int theBin = 0;
+    for (; firstNode != NULL; firstNode = firstNode->next)
+    {
+        theBin = firstNode->m_element; // 当节点数据域元素不是整型时，需要该结构自己提供转化为整型的函数或符号重载
+        if (head[theBin] == NULL)
+        {// 箱子为空
+            head[theBin] = rear[theBin] = firstNode;
+        }
+        else
+        {// 箱子不为空 往箱子里加入节点，rear[theBin]始终记录该箱子的尾结点
+            rear[theBin]->next = firstNode;
+            rear[theBin] = firstNode;
+        }
+    }
+
+    chainNode<T>* y = NULL; // 开始按顺序连接节点, y的作用就是保存每个非空箱子的尾节点，连接下个非空箱子的头节点
+    for (int b = 0; b <= range; b++)
+    {
+        if (head[b] != NULL) // 第一个非空箱子，那么这个箱子的第一个节点就是按顺序排序的第一个节点
+        {
+            if (y == NULL) firstNode = head[b];
+            else y->next = head[b];
+            y = rear[b];
+        }
+    }
+    if (y != NULL) y->next = NULL; // 链表最后一个节点的next应该指向NULL
+    delete[] head;
+    delete[] rear;
 }
 
 template<typename T>

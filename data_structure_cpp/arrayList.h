@@ -1,4 +1,7 @@
 #pragma once
+#ifndef _ARRAYLIST_
+#define _ARRAYLIST
+
 #include<iostream>
 #include<sstream>
 #include<cstdlib>
@@ -156,3 +159,5 @@ inline void arrayList<T>::doubleCapicity()
     delete[] elements;
     elements = t;
 }
+
+#endif // !_ARRAYLIST_
